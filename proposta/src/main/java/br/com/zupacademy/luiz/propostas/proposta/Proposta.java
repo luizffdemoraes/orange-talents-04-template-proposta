@@ -23,6 +23,8 @@ public class Proposta {
     private String endereco;
     @NotNull @Positive
     private BigDecimal salario;
+    @Enumerated(EnumType.STRING)
+    private PropostaEstado propostaEstado;
     
 	public Proposta() {
 	}
@@ -34,6 +36,12 @@ public class Proposta {
 		this.nome = nome;
 		this.endereco = endereco;
 		this.salario = salario;
+	}
+	
+	
+
+	public Long getId() {
+		return id;
 	}
 
 	public String getDocumento() {
@@ -54,6 +62,11 @@ public class Proposta {
 
 	public BigDecimal getSalario() {
 		return salario;
+	}
+
+
+	public void setPropostaEstado(PropostaEstado propostaEstado) {
+		this.propostaEstado = propostaEstado;
 	}
 
 	@Override
