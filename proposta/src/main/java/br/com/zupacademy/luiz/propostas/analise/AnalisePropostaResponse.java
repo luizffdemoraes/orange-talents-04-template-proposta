@@ -1,5 +1,7 @@
 package br.com.zupacademy.luiz.propostas.analise;
 
+import java.util.UUID;
+
 public class AnalisePropostaResponse {
 	
 	private Long idProposta;

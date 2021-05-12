@@ -1,12 +1,15 @@
 package br.com.zupacademy.luiz.propostas.proposta;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+
+import br.com.zupacademy.luiz.propostas.cartao.Cartao;
 
 @Entity
 public class Proposta {
@@ -23,8 +26,12 @@ public class Proposta {
     private String endereco;
     @NotNull @Positive
     private BigDecimal salario;
+    
     @Enumerated(EnumType.STRING)
     private PropostaEstado propostaEstado;
+    
+    @OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    private Cartao cartao;
     
 	public Proposta() {
 	}
@@ -64,16 +71,34 @@ public class Proposta {
 		return salario;
 	}
 
+	
+
+	public PropostaEstado getPropostaEstado() {
+		return propostaEstado;
+	}
 
 	public void setPropostaEstado(PropostaEstado propostaEstado) {
 		this.propostaEstado = propostaEstado;
 	}
+	
+	public Cartao getCartao() {
+	    return cartao;
+	  }
+	
+	
+
+	  public void setCartao(Cartao cartao) {
+	    this.cartao = cartao;
+	  }
+	  
+	  
 
 	@Override
 	public String toString() {
 		return "Proposta [id=" + id + ", documento=" + documento + ", email=" + email + ", nome=" + nome + ", endereco="
-				+ endereco + ", salario=" + salario + "]";
+				+ endereco + ", salario=" + salario + ", propostaEstado=" + propostaEstado + "]";
 	}
+
 	
 	
 	

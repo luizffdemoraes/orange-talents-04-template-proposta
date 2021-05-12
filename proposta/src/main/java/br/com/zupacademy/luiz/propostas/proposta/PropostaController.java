@@ -10,11 +10,15 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.zupacademy.luiz.propostas.analise.AnalisePropostaClient;
@@ -25,20 +29,17 @@ import feign.FeignException;
 @RequestMapping("/proposta")
 public class PropostaController {
 
-	
-	@Autowired private PropostaRepository propostaRepository;
-	
+	@Autowired
+	private PropostaRepository propostaRepository;
 
-	@Autowired private AnalisePropostaClient analisePropostaClient;
-	
-	
+	@Autowired
+	private AnalisePropostaClient analisePropostaClient;
+
 	private final Logger logger = LoggerFactory.getLogger(PropostaController.class);
 
-	
 	@PostMapping
 	@Transactional
-	public ResponseEntity<?> cadastrar(@RequestBody @Valid PropostaRequest request, 
-			UriComponentsBuilder builder) {
+	public ResponseEntity<?> cadastrar(@RequestBody @Valid PropostaRequest request, UriComponentsBuilder builder) {
 
 		Proposta novaProposta = request.tranformaProposta();
 		Optional<Proposta> props = propostaRepository.findByDocumento(novaProposta.getDocumento());
@@ -64,6 +65,17 @@ public class PropostaController {
 
 		URI enderecoUri = builder.path("proposta/{id}").build(novaProposta.getDocumento());
 		return ResponseEntity.created(enderecoUri).build();
+
+	}
+
+	@GetMapping("/{id}")
+	public ResponseEntity<?> buscaProposta(@PathVariable Long id) {
+
+		Proposta proposta = propostaRepository.findById(id)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+						"Não foi encontrada nenhuma proposta com id=" + id));
+
+		return ResponseEntity.ok(new PropostaResponse(proposta));
 
 	}
 
