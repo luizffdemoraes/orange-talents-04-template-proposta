@@ -36,6 +36,20 @@ public class PropostaController {
 	private AnalisePropostaClient analisePropostaClient;
 
 	private final Logger logger = LoggerFactory.getLogger(PropostaController.class);
+	
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<?> buscaProposta(@PathVariable Long id) {
+
+		Proposta proposta = propostaRepository.findById(id)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+						"Não foi encontrada nenhuma proposta com id=" + id));
+
+		return ResponseEntity.ok(new PropostaResponse(proposta));
+
+	}
+	
+	
 
 	@PostMapping
 	@Transactional
@@ -68,15 +82,6 @@ public class PropostaController {
 
 	}
 
-	@GetMapping("/{id}")
-	public ResponseEntity<?> buscaProposta(@PathVariable Long id) {
 
-		Proposta proposta = propostaRepository.findById(id)
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-						"Não foi encontrada nenhuma proposta com id=" + id));
-
-		return ResponseEntity.ok(new PropostaResponse(proposta));
-
-	}
 
 }
