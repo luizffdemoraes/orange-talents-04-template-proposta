@@ -5,7 +5,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @FeignClient(value = "solicitacao", url = "http://127.0.0.1:9999/api")
-@Component
 public interface AnalisePropostaClient {
 	
 	@PostMapping(value = "/solicitacao", produces = "application/json")

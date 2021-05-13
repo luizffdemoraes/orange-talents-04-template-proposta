@@ -1,8 +1,6 @@
 package br.com.zupacademy.luiz.propostas.proposta;
 
 import java.math.BigDecimal;
-import java.util.UUID;
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

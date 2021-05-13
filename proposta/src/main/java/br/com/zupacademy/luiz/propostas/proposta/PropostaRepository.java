@@ -2,7 +2,6 @@ package br.com.zupacademy.luiz.propostas.proposta;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import org.springframework.data.repository.CrudRepository;
 

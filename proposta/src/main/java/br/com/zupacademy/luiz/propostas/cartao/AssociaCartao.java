@@ -9,12 +9,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 
 import br.com.zupacademy.luiz.propostas.proposta.Proposta;
 import br.com.zupacademy.luiz.propostas.proposta.PropostaEstado;
 import br.com.zupacademy.luiz.propostas.proposta.PropostaRepository;
 import feign.FeignException;
 
+@Component
 public class AssociaCartao {
 
 	private final Logger logger = LoggerFactory.getLogger(AssociaCartao.class);
@@ -27,7 +29,8 @@ public class AssociaCartao {
 		this.cartaoClient = cartaoClient;
 	}
 
-	@Scheduled(fixedDelay = 30000)
+	//fixedDelay = 60000
+	@Scheduled(fixedRateString = "3000")
 	@Transactional
 	public void associarCartao() {
 		logger.info("Verificando cartões para propostas");
@@ -39,7 +42,10 @@ public class AssociaCartao {
 						logger.info("Proposta id={} atualizada com cartão", proposta.getId());
 					} catch (FeignException e) {
 						logger.info("Proposta id={} ainda não tem cartão", proposta.getId());
+						throw e;
+						
 					}
+					
 				}).collect(Collectors.filtering(proposta -> proposta.getCartao() != null, Collectors.toList()));
 		propostaRepository.saveAll(propostaCartao);
 	}

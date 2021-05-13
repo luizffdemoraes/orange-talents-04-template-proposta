@@ -74,6 +74,7 @@ public class PropostaController {
             analisePropostaClient.analisaProposta(validacaoRequest);
             validProposta.setPropostaEstado(PropostaEstado.ELEGIVEL);
         } catch (FeignException e) {
+        	e.printStackTrace();
         	validProposta.setPropostaEstado(PropostaEstado.NAO_ELEGIVEL);
         }
 

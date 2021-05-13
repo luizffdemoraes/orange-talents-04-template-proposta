@@ -16,7 +16,7 @@ import br.com.zupacademy.luiz.propostas.proposta.Proposta;
 public class Cartao {
 	
 	 	@Id
-	    private Long id;
+	    private String id;
 
 	    private LocalDate emitidoEm;
 	    
@@ -30,14 +30,14 @@ public class Cartao {
 	    public Cartao() {
 	    }
 
-	    public Cartao(Long id, LocalDate emitidoEm, String titular, Proposta proposta) {
+	    public Cartao(String id, LocalDate emitidoEm, String titular, Proposta proposta) {
 	        this.id = id;
 	        this.emitidoEm = emitidoEm;
 	        this.titular = titular;
 	        this.proposta = proposta;
 	      }
 
-		public Long getId() {
+		public String getId() {
 			return id;
 		}
 
