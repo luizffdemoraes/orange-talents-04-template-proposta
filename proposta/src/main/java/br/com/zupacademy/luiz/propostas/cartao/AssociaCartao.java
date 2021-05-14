@@ -30,7 +30,7 @@ public class AssociaCartao {
 	}
 
 	//fixedDelay = 60000
-	@Scheduled(fixedRateString = "3000")
+	@Scheduled(fixedRateString = "60000")
 	@Transactional
 	public void associarCartao() {
 		logger.info("Verificando cartões para propostas");

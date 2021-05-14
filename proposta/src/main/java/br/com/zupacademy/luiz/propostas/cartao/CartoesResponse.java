@@ -1,7 +1,6 @@
 package br.com.zupacademy.luiz.propostas.cartao;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 import br.com.zupacademy.luiz.propostas.proposta.Proposta;
 
