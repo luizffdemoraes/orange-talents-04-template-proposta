@@ -1,6 +1,5 @@
 package br.com.zupacademy.luiz.propostas.bloqueio;
 
-
 public class BloqueioRequest {
 
 	private String ipCliente;
@@ -18,7 +17,5 @@ public class BloqueioRequest {
 	public String getUserAgent() {
 		return userAgent;
 	}
-
-
 
 }

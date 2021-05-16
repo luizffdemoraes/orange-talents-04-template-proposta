@@ -24,7 +24,6 @@ public class Cartao {
 	@Enumerated(EnumType.STRING)
 	private StatusCartao status = StatusCartao.ATIVO;
 
-
 	@OneToOne(mappedBy = "cartao", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Proposta proposta;
 

@@ -31,6 +31,7 @@ public class Proposta {
     @OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private Cartao cartao;
     
+    @Deprecated
 	public Proposta() {
 	}
 
