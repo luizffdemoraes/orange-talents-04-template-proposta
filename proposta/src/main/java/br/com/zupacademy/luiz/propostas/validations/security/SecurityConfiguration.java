@@ -7,19 +7,18 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
 
-
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests(authorizeRequests -> authorizeRequests
-				.antMatchers(HttpMethod.GET, "/propostas/**").hasAuthority("SCOPE_meu-primeiro-escopo")
-				.antMatchers(HttpMethod.POST, "/propostas/**").hasAuthority("SCOPE_meu-primeiro-escopo")
-				.antMatchers(HttpMethod.GET, "/biometria/**").hasAuthority("SCOPE_meu-primeiro-escopo")
-				.antMatchers(HttpMethod.POST, "/biometria/**").hasAuthority("SCOPE_meu-primeiro-escopo")
-				.antMatchers(HttpMethod.POST, "/bloqueio/**").hasAuthority("SCOPE_meu-primeiro-escopo")
+		http.authorizeRequests(authorizeRequests -> authorizeRequests.antMatchers(HttpMethod.GET, "/propostas/**")
+				.hasAuthority("SCOPE_meu-primeiro-escopo").antMatchers(HttpMethod.POST, "/propostas/**")
+				.hasAuthority("SCOPE_meu-primeiro-escopo").antMatchers(HttpMethod.GET, "/biometria/**")
+				.hasAuthority("SCOPE_meu-primeiro-escopo").antMatchers(HttpMethod.POST, "/biometria/**")
+				.hasAuthority("SCOPE_meu-primeiro-escopo").antMatchers(HttpMethod.POST, "/bloqueio/**")
+				.hasAuthority("SCOPE_meu-primeiro-escopo").antMatchers(HttpMethod.GET, "/actuator/**").permitAll()
 				.anyRequest().authenticated()
 
 		).oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);

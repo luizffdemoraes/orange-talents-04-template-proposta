@@ -23,6 +23,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.zupacademy.luiz.propostas.analise.AnalisePropostaClient;
 import br.com.zupacademy.luiz.propostas.analise.AnalisePropostaRequest;
+import br.com.zupacademy.luiz.propostas.metricas.Metricas;
 import feign.FeignException;
 
 @RestController
@@ -34,13 +35,15 @@ public class PropostaController {
 
 	@Autowired
 	private AnalisePropostaClient analisePropostaClient;
+	
+	@Autowired
+	private Metricas metricas;
 
 	private final Logger logger = LoggerFactory.getLogger(PropostaController.class);
 	
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<?> buscaProposta(@PathVariable Long id) {
-
 		Proposta proposta = propostaRepository.findById(id)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
 						"Não foi encontrada nenhuma proposta com id=" + id));
@@ -67,6 +70,7 @@ public class PropostaController {
 		propostaRepository.save(novaProposta);
 		logger.info("Proposta criada com sucesso!");
 		var validProposta = propostaRepository.save(novaProposta);
+		metricas.contador();
 		
 		//validação da proposta
 		try {
