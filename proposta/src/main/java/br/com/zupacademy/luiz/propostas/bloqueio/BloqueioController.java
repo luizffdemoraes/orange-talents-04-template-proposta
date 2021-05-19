@@ -60,6 +60,9 @@ public class BloqueioController {
 		} catch (FeignException.UnprocessableEntity ex) {
 			logger.warn("Cartão {} já se encontrada bloqueado", cartao.getNumeroCartao());
 			return ResponseEntity.unprocessableEntity().build();
+		} catch (Exception e) {
+			logger.warn("Erro ao tentar conectar com a api externa!");
+			return ResponseEntity.badRequest().build();
 		}
 
 

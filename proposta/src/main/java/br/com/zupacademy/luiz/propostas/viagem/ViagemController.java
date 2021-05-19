@@ -59,11 +59,10 @@ public class ViagemController {
 		} catch (FeignException.UnprocessableEntity e) {
 			logger.warn("Já existe um aviso viagem para o cartao {} com  a cidade fornecida", id);
 			return ResponseEntity.unprocessableEntity().build();
-		}	
-//		} catch (Exception e) {
-//			logger.warn("Erro ao tentar conectar com a api externa!");
-//			return ResponseEntity.badRequest().build();
-//		}
+		}	catch (Exception e) {
+			logger.warn("Erro ao tentar conectar com a api externa!");
+			return ResponseEntity.badRequest().build();
+		}
 
 	}
 
