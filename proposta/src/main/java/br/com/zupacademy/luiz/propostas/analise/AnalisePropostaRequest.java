@@ -1,6 +1,6 @@
 package br.com.zupacademy.luiz.propostas.analise;
 
-import java.util.UUID;
+
 
 import br.com.zupacademy.luiz.propostas.proposta.Proposta;
 

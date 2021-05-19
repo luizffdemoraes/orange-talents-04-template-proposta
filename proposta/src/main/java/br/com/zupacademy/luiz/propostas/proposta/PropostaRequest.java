@@ -9,6 +9,8 @@ import javax.validation.constraints.Positive;
 
 import br.com.zupacademy.luiz.propostas.validations.annotations.CPForCNPJ;
 
+
+
 public class PropostaRequest {
 
 	@NotBlank

@@ -3,19 +3,28 @@ package br.com.zupacademy.luiz.propostas.cartao;
 import java.time.LocalDate;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
 import javax.persistence.OneToOne;
+
 import br.com.zupacademy.luiz.propostas.proposta.Proposta;
 
 @Entity
 public class Cartao {
 
 	@Id
-	private String id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
+	@Column(unique = true, nullable = false)
+	private String numeroCartao;
 
 	private LocalDate emitidoEm;
 
@@ -31,15 +40,19 @@ public class Cartao {
 	public Cartao() {
 	}
 
-	public Cartao(String id, LocalDate emitidoEm, String titular, Proposta proposta) {
-		this.id = id;
+	public Cartao(String numeroCartao, LocalDate emitidoEm, String titular, Proposta proposta) {
+		this.numeroCartao = numeroCartao;
 		this.emitidoEm = emitidoEm;
 		this.titular = titular;
 		this.proposta = proposta;
 	}
 
-	public String getId() {
-		return id;
+	public String getNumeroCartao() {
+		return numeroCartao;
+	}
+
+	public StatusCartao getStatus() {
+		return status;
 	}
 
 	public LocalDate getEmitidoEm() {

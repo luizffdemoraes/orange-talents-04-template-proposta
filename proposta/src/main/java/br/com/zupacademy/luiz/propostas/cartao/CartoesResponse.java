@@ -19,7 +19,7 @@ public class CartoesResponse {
 	}
 
 	public CartoesResponse(Cartao cartao) {
-		this.id = cartao.getId();
+		this.id = cartao.getNumeroCartao();
 		this.emitidoEm = cartao.getEmitidoEm();
 		this.titular = cartao.getTitular();
 		this.idProposta = cartao.getProposta().getId();
@@ -46,4 +46,6 @@ public class CartoesResponse {
 		return new Cartao(id, emitidoEm, titular, proposta);
 	}
 
+	
+	
 }

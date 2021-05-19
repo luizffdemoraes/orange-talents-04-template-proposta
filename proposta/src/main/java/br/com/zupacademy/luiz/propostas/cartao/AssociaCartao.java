@@ -28,8 +28,8 @@ public class AssociaCartao {
 		this.propostaRepository = propostaRepository;
 		this.cartaoClient = cartaoClient;
 	}
-
-	//fixedDelay = 60000
+	
+	// fixedDelay = 60000
 	@Scheduled(fixedRateString = "60000")
 	@Transactional
 	public void associarCartao() {
@@ -45,7 +45,7 @@ public class AssociaCartao {
 						throw e;
 						
 					}
-					
+
 				}).collect(Collectors.filtering(proposta -> proposta.getCartao() != null, Collectors.toList()));
 		propostaRepository.saveAll(propostaCartao);
 	}

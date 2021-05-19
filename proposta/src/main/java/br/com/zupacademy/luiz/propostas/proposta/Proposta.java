@@ -12,26 +12,31 @@ import br.com.zupacademy.luiz.propostas.cartao.Cartao;
 @Entity
 public class Proposta {
 
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @NotBlank @Column(unique = true)
-    private String documento;
-    @NotBlank @Email
-    private String email;
-    @NotBlank
-    private String nome;
-    @NotBlank
-    private String endereco;
-    @NotNull @Positive
-    private BigDecimal salario;
-    
-    @Enumerated(EnumType.STRING)
-    private PropostaEstado propostaEstado;
-    
-    @OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
-    private Cartao cartao;
-    
-    @Deprecated
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	@NotBlank
+	@Column(unique = true)
+	private String documento;
+	@NotBlank
+	@Email
+	private String email;
+	@NotBlank
+	private String nome;
+	@NotBlank
+	private String endereco;
+	@NotNull
+	@Positive
+	private BigDecimal salario;
+	
+
+	@Enumerated(EnumType.STRING)
+	private PropostaEstado propostaEstado;
+
+	@OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+	private Cartao cartao;
+
+	@Deprecated
 	public Proposta() {
 	}
 
@@ -43,8 +48,6 @@ public class Proposta {
 		this.endereco = endereco;
 		this.salario = salario;
 	}
-	
-	
 
 	public Long getId() {
 		return id;
@@ -70,8 +73,6 @@ public class Proposta {
 		return salario;
 	}
 
-	
-
 	public PropostaEstado getPropostaEstado() {
 		return propostaEstado;
 	}
@@ -79,18 +80,10 @@ public class Proposta {
 	public void setPropostaEstado(PropostaEstado propostaEstado) {
 		this.propostaEstado = propostaEstado;
 	}
-	
-	public Cartao getCartao() {
-	    return cartao;
-	  }
-	
-	
 
-	  public void setCartao(Cartao cartao) {
-	    this.cartao = cartao;
-	  }
-	  
-	  
+	public Cartao getCartao() {
+		return cartao;
+	}
 
 	@Override
 	public String toString() {
@@ -98,9 +91,8 @@ public class Proposta {
 				+ endereco + ", salario=" + salario + ", propostaEstado=" + propostaEstado + "]";
 	}
 
-	
-	
-	
-    
-    
+	public void setCartao(Cartao cartao) {
+		this.cartao = cartao;
+	}
+
 }

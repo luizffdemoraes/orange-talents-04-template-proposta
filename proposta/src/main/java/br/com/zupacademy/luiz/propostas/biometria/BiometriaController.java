@@ -8,7 +8,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,7 +37,7 @@ public class BiometriaController {
 	@PostMapping("/{id}")
 	@Transactional
 	public ResponseEntity<?> cadastrar(
-			@PathVariable String id, 
+			@PathVariable Long id, 
 			@RequestBody @Valid BiometriaRequest request,
 			UriComponentsBuilder builder) {
 		

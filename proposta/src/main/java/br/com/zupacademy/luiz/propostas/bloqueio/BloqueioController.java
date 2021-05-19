@@ -1,4 +1,4 @@
- package br.com.zupacademy.luiz.propostas.bloqueio;
+package br.com.zupacademy.luiz.propostas.bloqueio;
 
 import java.util.Optional;
 
@@ -25,76 +25,44 @@ public class BloqueioController {
 
 	private final Logger logger = LoggerFactory.getLogger(BloqueioController.class);
 
-	private CartaoRepository cartaoRepository;
-	private BloqueioRepository bloqueioRepository;
-	private final CartaoClient cartaoClient;
-
 	@Autowired
-	public BloqueioController(CartaoRepository cartaoRepository, BloqueioRepository bloqueioRepository,
-			CartaoClient cartaoClient) {
-		this.cartaoRepository = cartaoRepository;
-		this.bloqueioRepository = bloqueioRepository;
-		this.cartaoClient = cartaoClient;
-	}
+	private CartaoRepository cartaoRepository;
+	@Autowired
+	private BloqueioRepository bloqueioRepository;
+	@Autowired
+	CartaoClient client;
+
 
 	@Transactional
 	@PostMapping("/{id}")
-	public ResponseEntity<?> realizaBloqueio(@PathVariable String id, HttpServletRequest request) {
+	public ResponseEntity<?> realizaBloqueio(@PathVariable Long id, HttpServletRequest request) {
 		Optional<Cartao> possivelCartao = cartaoRepository.findById(id);
+
+		String ip = request.getRemoteAddr();
+		String userAgente = request.getHeader("User-Agent");
 
 		if (possivelCartao.isEmpty()) {
 			logger.warn("Cartão não encontrado.");
 			return ResponseEntity.notFound().build();
 		}
 
+		Cartao cartao = possivelCartao.get();
 		try {
-			Cartao cartao = possivelCartao.get();
-			BloqueioExternoRequest bloqueioExternoRequest = new BloqueioExternoRequest("propostas");
-			BloqueioExternoResponse bloqueioExternoResponse = cartaoClient.bloquear(cartao.getId(),
-					bloqueioExternoRequest);
-			cartao.bloqueiaCartao();
-			Bloqueio bloqueio = Bloquear(request, cartao);
+			
+			client.bloquear(cartao.getNumeroCartao(), new BloqueioExternoRequest("propostas"));
+			
+			Bloqueio bloqueio = new Bloqueio(ip, userAgente, cartao);
+			possivelCartao.get().bloqueiaCartao();
 			bloqueioRepository.save(bloqueio);
-			logger.info("Cartão bloqueado com sucesso, ID = {}", id);
+			logger.info("O cartão {} foi bloqueado", cartao.getNumeroCartao());
+			return ResponseEntity.ok().build();
+
 		} catch (FeignException.UnprocessableEntity ex) {
-			logger.warn("Cartão já se encontrada bloqueado, ID = {}", id);
+			logger.warn("Cartão {} já se encontrada bloqueado", cartao.getNumeroCartao());
 			return ResponseEntity.unprocessableEntity().build();
-		} catch (FeignException ex) {
-			logger.warn("Houston, we have a problem!");
 		}
 
-		return ResponseEntity.ok().build();
+
 	}
 
-	private Bloqueio Bloquear(HttpServletRequest request, Cartao cartao) {
-		String ip = request.getRemoteAddr();
-		String user_Agente = request.getHeader("User-Agent");
-		return new Bloqueio(ip, user_Agente, cartao);
-	}
-
-	// MUDANÇA
-//	@PostMapping("/{id}")
-//	@Transactional
-//	public ResponseEntity<?> realizaBloqueio(@PathVariable String id, HttpServletRequest request) {
-//		Optional<Cartao> possivelCartao = cartaoRepository.findById(id);
-//		Cartao cartao = possivelCartao.get();
-//
-//		if (possivelCartao.isEmpty()) {
-//			logger.warn("Cartão não encontrado.");
-//			return ResponseEntity.notFound().build();
-//		} else if (cartao.estaBloqueado()) {
-//			logger.warn("Cartão já se encontrada bloqueado, id = {}", id);
-//			return ResponseEntity.unprocessableEntity().build();
-//		} else {
-//
-//			String ip = request.getRemoteAddr();
-//			String userAgent = request.getHeader("User-Agent");
-//			cartao.bloqueiaCartao();
-//			Bloqueio bloqueio = new Bloqueio(ip, userAgent, cartao);
-//			bloqueioRepository.save(bloqueio);
-//			logger.info("Bloqueio do cartão realizado com sucesso, id = {}", id);
-//
-//			return ResponseEntity.ok().build();
-//		}
-//	}
 }
