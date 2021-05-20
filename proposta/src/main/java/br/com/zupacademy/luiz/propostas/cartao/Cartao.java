@@ -11,9 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
 import javax.persistence.OneToOne;
-
 import br.com.zupacademy.luiz.propostas.proposta.Proposta;
 
 @Entity
@@ -21,7 +19,7 @@ public class Cartao {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private String id;
 
 	@Column(unique = true, nullable = false)
 	private String numeroCartao;
@@ -65,6 +63,10 @@ public class Cartao {
 
 	public Proposta getProposta() {
 		return proposta;
+	}
+
+	public String getId() {
+		return id;
 	}
 
 	public void bloqueiaCartao() {

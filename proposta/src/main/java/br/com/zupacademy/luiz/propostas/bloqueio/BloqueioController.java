@@ -35,7 +35,7 @@ public class BloqueioController {
 
 	@Transactional
 	@PostMapping("/{id}")
-	public ResponseEntity<?> realizaBloqueio(@PathVariable Long id, HttpServletRequest request) {
+	public ResponseEntity<?> realizaBloqueio(@PathVariable String id, HttpServletRequest request) {
 		Optional<Cartao> possivelCartao = cartaoRepository.findById(id);
 
 		String ip = request.getRemoteAddr();
