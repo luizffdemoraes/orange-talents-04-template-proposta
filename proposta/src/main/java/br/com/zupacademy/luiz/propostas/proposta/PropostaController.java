@@ -63,12 +63,13 @@ public class PropostaController {
 	public ResponseEntity<?> cadastrar(@RequestBody @Valid PropostaRequest request, UriComponentsBuilder builder) {
 		
 	
-		Span activeSpan = tracer.activeSpan();
+		Span activeSpan = tracer.buildSpan("meunovospan").start();
 		activeSpan.setTag("user.email", "luiz.moraes@zup.com.br");
 		String userEmail = activeSpan.getBaggageItem("user.email");
 		activeSpan.setBaggageItem("user.email", userEmail);
 		activeSpan.log("Meu log");
-
+		
+		activeSpan.finish();
 
 
 		Proposta novaProposta = request.tranformaProposta();
