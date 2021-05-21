@@ -32,10 +32,9 @@ public class BloqueioController {
 	@Autowired
 	CartaoClient client;
 
-
 	@Transactional
 	@PostMapping("/{id}")
-	public ResponseEntity<?> realizaBloqueio(@PathVariable String id, HttpServletRequest request) {
+	public ResponseEntity<?> realizaBloqueio(@PathVariable Long id, HttpServletRequest request) {
 		Optional<Cartao> possivelCartao = cartaoRepository.findById(id);
 
 		String ip = request.getRemoteAddr();
@@ -48,9 +47,8 @@ public class BloqueioController {
 
 		Cartao cartao = possivelCartao.get();
 		try {
-			
+
 			client.bloquear(cartao.getNumeroCartao(), new BloqueioExternoRequest("propostas"));
-			
 			Bloqueio bloqueio = new Bloqueio(ip, userAgente, cartao);
 			possivelCartao.get().bloqueiaCartao();
 			bloqueioRepository.save(bloqueio);
@@ -64,7 +62,6 @@ public class BloqueioController {
 			logger.warn("Erro ao tentar conectar com a api externa!");
 			return ResponseEntity.badRequest().build();
 		}
-
 
 	}
 

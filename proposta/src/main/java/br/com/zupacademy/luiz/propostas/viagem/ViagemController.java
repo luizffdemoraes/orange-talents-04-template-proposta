@@ -36,7 +36,7 @@ public class ViagemController {
 	private ViagemRepository viagemRepository;
 
 	@PostMapping("/{id}")
-	public ResponseEntity<?> cadastrar(@PathVariable String id, @RequestBody @Valid ViagemRequest viagemRequest,
+	public ResponseEntity<?> cadastrar(@PathVariable Long id, @RequestBody @Valid ViagemRequest viagemRequest,
 			HttpServletRequest request) {
 
 		String userAgent = request.getHeader("User-Agent");

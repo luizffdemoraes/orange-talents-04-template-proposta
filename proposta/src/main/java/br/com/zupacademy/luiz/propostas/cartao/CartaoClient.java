@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import br.com.zupacademy.luiz.propostas.bloqueio.BloqueioExternoRequest;
 import br.com.zupacademy.luiz.propostas.bloqueio.BloqueioExternoResponse;
 import br.com.zupacademy.luiz.propostas.carteira.CarteiraRequest;
-import br.com.zupacademy.luiz.propostas.carteira.ResultadoCarteira;
 import br.com.zupacademy.luiz.propostas.viagem.ViagemRequest;
 
 @Component

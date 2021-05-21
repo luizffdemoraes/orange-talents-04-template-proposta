@@ -37,7 +37,7 @@ public class BiometriaController {
 	@PostMapping("/{id}")
 	@Transactional
 	public ResponseEntity<?> cadastrar(
-			@PathVariable String id, 
+			@PathVariable Long id, 
 			@RequestBody @Valid BiometriaRequest request,
 			UriComponentsBuilder builder) {
 		
