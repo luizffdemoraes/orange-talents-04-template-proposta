@@ -16,6 +16,8 @@ services:
       ANALISES_URL: http://analise:9999/api/solicitacao
       CARTOES_URL: http://contas:8888/api/cartoes
       DATABASE_URL: jdbc:mariadb://mariadb:3306/propostas
+      KEYCLOAK_ISSUER_URI: http://keycloak:8080/auth/realms/nosso-cartao
+      KEYCLOAK_JWKS_URI: http://keycloak:8080/auth/realms/nosso-cartao/protocol/openid-connect/certs
 
   mariadb:
     image: mariadb
