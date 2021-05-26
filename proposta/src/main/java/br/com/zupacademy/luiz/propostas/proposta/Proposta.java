@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 import br.com.zupacademy.luiz.propostas.cartao.Cartao;
+import br.com.zupacademy.luiz.propostas.validations.criptografia.CriptografarDados;
 
 @Entity
 public class Proposta {
@@ -17,6 +18,7 @@ public class Proposta {
 	private Long id;
 	@NotBlank
 	@Column(unique = true)
+	@Convert(converter = CriptografarDados.class)
 	private String documento;
 	@NotBlank
 	@Email

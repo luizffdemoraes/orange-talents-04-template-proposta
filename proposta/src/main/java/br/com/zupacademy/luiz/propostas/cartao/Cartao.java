@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -13,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import br.com.zupacademy.luiz.propostas.proposta.Proposta;
+import br.com.zupacademy.luiz.propostas.validations.criptografia.CriptografarDados;
 
 @Entity
 public class Cartao {
@@ -21,6 +23,7 @@ public class Cartao {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@Convert(converter = CriptografarDados.class)
 	@Column(unique = true, nullable = false)
 	private String numeroCartao;
 
